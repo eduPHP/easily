@@ -1,0 +1,3 @@
+alias p="php artisan test --parallel --processes 6 --exclude-group TBD,demo,legacyImports"
+alias pf="php artisan test --fi"
+alias art="php artisan"

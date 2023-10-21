@@ -1,0 +1,6 @@
+mysql
+config/nginx/rootCA.*
+projects/*
+.DS_Store
+.idea
+.easily.running.lock

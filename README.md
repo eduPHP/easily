@@ -49,7 +49,7 @@ easily create my-project
 
 To run in https you need to import the certificate authority generated on `./config/nginx/rootCA.pem`
 
-If you don't know how to do it, there are plenty of totorials on google
+If you don't know how to do it, there are plenty of [tutorials on Google](https://www.google.com/search?channel=fs&client=ubuntu-sn&q=import+certificate+authority)
 
 
 ### TO-DO

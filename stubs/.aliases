@@ -1,3 +1,7 @@
+alias rebuild="${command} build $2"
+alias composer="docker exec -ti ${project_alias}_php_1 composer"
+alias npm="${command} -p ${project_alias} run --rm npm"
+alias php="docker exec -ti ${project_alias}_php_1 php"
 alias p="php artisan test --parallel --processes 6 --exclude-group TBD,demo,legacyImports"
 alias pf="php artisan test --fi"
 alias art="php artisan"

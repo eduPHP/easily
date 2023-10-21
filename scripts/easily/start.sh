@@ -30,11 +30,6 @@ function easilyStart() {
     eval "sh ${EASILY_ROOT}/scripts/cert.sh ${project_id}"
   fi
 
-  alias rebuild="${command} build $2"
-  alias composer="docker exec -ti ${project_alias}_php_1 composer"
-  alias npm="${command} -p ${project_alias} run --rm npm"
-  alias php="docker exec -ti ${project_alias}_php_1 php"
-
   if [ -f "${project_dir}/.aliases" ]; then
     source "${project_dir}/.aliases"
   else

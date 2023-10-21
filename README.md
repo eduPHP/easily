@@ -56,5 +56,6 @@ If you don't know how to do it, there are plenty of totorials on google
 
 - [ ] "update" command that pulls the latest changes and re-source
 - [ ] a command to upgrade/downgrade php/npm versions
+- [ ] a command to dump/restore the main database
 - [ ] control panel
 - [ ] an "install" command to install docker and all dependencies

@@ -4,8 +4,8 @@
 
 ### Dependencies
 
-- docker https://docs.docker.com/get-docker/
-- docker-compose https://github.com/docker/compose
+- [docker](https://docs.docker.com/get-docker/)
+- [docker-compose-v2](https://github.com/docker/compose)
 
 How this works?
 
@@ -31,13 +31,18 @@ Usage: easily [start|stop|create|remove] {project}
 easily create my-project
 ```
 
+### Configuration
+
+You can call a project by a shorthand and give it a nice presentable name in the file: `./config/projects.ini`
+
+
 ### Aliases
 | Alias                  | Description                                                                                      |
 |------------------------|--------------------------------------------------------------------------------------------------|
 | rebuild&nbsp;{service} | rebulds the given service, ie. `app`/`php`/`mysql` (this might delete the changes you have on it |
 | npm                    | runs npm                                                                                         |
 | php                    | runs php commands, ie. `php -v`                                                                  |
-| p                      | runs tests `php artisan test --parallel --processes 6 `                                          |
+| p                      | runs tests `php artisan test --parallel --processes 6`                                           |
 | pf {arg}               | runs tests with a filter `php artisan test --fi`                                                 |
 | art                    | shorthand for `php artisan`                                                                      |
 

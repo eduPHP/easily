@@ -10,8 +10,7 @@ function easily.stop() {
         return 0
       else
         source $LOCK
-        # bad code?
-        1=$EASILY_RUNNING
+        set -- $EASILY_RUNNING
       fi
   fi
 

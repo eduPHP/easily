@@ -1,6 +1,6 @@
 EASILY_ROOT="${HOME}/code/docker"
 
-function easilyRemove() {
+function easily.remove() {
   if [ $# -eq 0 ]
     then
       echo.danger "No arguments supplied"
@@ -23,4 +23,4 @@ function easilyRemove() {
   fi
 }
 
-easilyRemove $2
+easily.remove $2

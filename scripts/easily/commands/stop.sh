@@ -1,6 +1,6 @@
 EASILY_ROOT="${HOME}/code/docker"
 
-function easilyStop() {
+function easily.stop() {
   local LOCK="${EASILY_ROOT}/.easily.running.lock"
 
   if [ $# -eq 0 ]; then
@@ -37,4 +37,4 @@ function easilyStop() {
   echo.success "Stopped ${project_name}..."
 }
 
-easilyStop $2
+easily.stop $2

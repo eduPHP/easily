@@ -1,6 +1,6 @@
 EASILY_ROOT="${HOME}/code/docker"
 
-function easilyCreate() {
+function easily.create() {
   if [ $# -eq 0 ]
     then
       echo -e "Please, input a project name"
@@ -37,4 +37,4 @@ function easilyCreate() {
   echo.info "easily start ${project_id}"
 }
 
-easilyCreate $2
+easily.create $2

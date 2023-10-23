@@ -1,6 +1,6 @@
 EASILY_ROOT="${HOME}/code/docker"
 
-function easilyStart() {
+function easily.start() {
   if [ $# -eq 0 ]
     then
       echo.danger "No arguments supplied"
@@ -51,4 +51,4 @@ function easilyStart() {
   echo "EASILY_RUNNING=$project_id" > $LOCK
 }
 
-easilyStart $2
+easily.start $2

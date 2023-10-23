@@ -11,8 +11,8 @@ local project_dir="${projects_dir}/${project_id}"
 
 if [ ! -d $project_dir ]
 then
-  echo "Project \"$1\" not found!"
-  echo "Run \"easily create $1\" to create it!"
+  echo.danger "Project \"$1\" not found!"
+  echo.info "Run \"easily create $1\" to create it!"
   easily help
   return 1
 fi
@@ -25,4 +25,4 @@ fi
 
 local project_alias="$(echo "${project_name}" | sed 's/[- ]/_/g' | sed 's/[A-Z]/\l&/g' )"
 local docker_compose="${project_dir}/docker-compose.yml"
-local command="docker-compose -f $docker_compose"
+local command="docker compose -f $docker_compose"

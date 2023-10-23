@@ -2,6 +2,7 @@ EASILY_ROOT="${HOME}/code/docker"
 export PATH=$EASILY_ROOT/bin:$PATH
 
 function easily() {
+  source "${EASILY_ROOT}/scripts/easily/functions.sh"
 
   if [ -z $1 ]; then
     local action="help";
@@ -9,8 +10,8 @@ function easily() {
     local action=$1
   fi
 
-  if [ -f "${EASILY_ROOT}/scripts/easily/${action}.sh" ]; then
-    . "${EASILY_ROOT}/scripts/easily/${action}.sh"
+  if [ -f "${EASILY_ROOT}/scripts/easily/commands/${action}.sh" ]; then
+    . "${EASILY_ROOT}/scripts/easily/commands/${action}.sh"
     return 0
   fi
 

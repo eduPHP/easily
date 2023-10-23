@@ -3,7 +3,7 @@ EASILY_ROOT="${HOME}/code/docker"
 function easilyStart() {
   if [ $# -eq 0 ]
     then
-      echo "No arguments supplied"
+      echo.danger "No arguments supplied"
       easily help
       return 0
   fi
@@ -17,16 +17,16 @@ function easilyStart() {
     source "${EASILY_ROOT}/.easily.running.lock"
 
     if [ "$project_id" != "$EASILY_RUNNING" ]; then
-      echo -e "$EASILY_RUNNING is already running, stopping it first..."
+      echo.warning "$EASILY_RUNNING is already running, stopping it first..."
       easily stop $EASILY_RUNNING
     fi
   fi
 
-  echo -e "\033[0;33m Setting up ${project_name}..."
+  echo.info "Setting up ${project_name}..."
 
   # Create local dertificates if it doesn't exist
   if [ ! -f "${project_dir}/certs/cert.csr" ]; then
-    echo -e "Certificates doesn't exist, creating..."
+    echo.info "Certificates doesn't exist, creating..."
     eval "sh ${EASILY_ROOT}/scripts/cert.sh ${project_id}"
   fi
 
@@ -41,12 +41,12 @@ function easilyStart() {
   if [ -d $SERVER_ROOT ]; then
       cd $SERVER_ROOT
     else
-      echo -e "SERVER_ROOT not found, please create your project at $SERVER_ROOT and try again"
+      echo.danger "SERVER_ROOT not found, please create your project at $SERVER_ROOT and try again"
       return 1
   fi
 
   eval ${command} -p ${project_alias} up -d
-  echo -e "\033[0;32m 🟢 ${project_name} initialized!"
+  echo.success "${project_name} initialized!"
 
   echo "EASILY_RUNNING=$project_id" > $LOCK
 }

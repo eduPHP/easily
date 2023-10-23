@@ -1,6 +1,6 @@
 EASILY_ROOT="${HOME}/code/docker"
 
-function easilyRemove() {
+function easilyCreate() {
   if [ $# -eq 0 ]
     then
       echo -e "Please, input a project name"
@@ -11,7 +11,7 @@ function easilyRemove() {
 
   local project_dir="${EASILY_ROOT}/projects/${project_id}"
   local project_name="$(tr "[A-Z]" "[a-z]" <<< "${project_id}")"
-  echo -e "Creating ${project_name}"
+  echo.info "Creating ${project_name}"
 
   local env_path="${EASILY_ROOT}/projects/${project_id}/.env"
 
@@ -31,10 +31,10 @@ function easilyRemove() {
   cp "${EASILY_ROOT}/stubs/docker-compose.yml" "${project_dir}/docker-compose.yml"
 
 #  clear
-  echo -e "Created ${project_id}, what's next?"
-  echo -e "Edit ${env_path} with the project information"
-  echo -e "sudo sh -c \"echo 127.0.0.1 ${project_id}.test >> /etc/hosts\""
-  echo -e "easily start ${project_id}"
+  success "Created ${project_id}, what's next?"
+  echo.info "Edit ${env_path} with the project information"
+  echo.info "sudo sh -c \"echo 127.0.0.1 ${project_id}.test >> /etc/hosts\""
+  echo.info "easily start ${project_id}"
 }
 
-easilyRemove $2
+easilyCreate $2

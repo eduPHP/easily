@@ -1,8 +1,8 @@
 version: '3'
 
 networks:
-  laravel:
-
+  easily:
+    external: true
 
 services:
   app:
@@ -26,7 +26,7 @@ services:
       - mysql
       - mailhog
     networks:
-      - laravel
+      - easily
 
   mysql:
     image: mysql:8
@@ -44,7 +44,7 @@ services:
       /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
       "
     networks:
-      - laravel
+      - easily
 
   php:
     build:
@@ -61,14 +61,14 @@ services:
       - ../../config/php/${PHP_VERSION}/config/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ../../config/php/${PHP_VERSION}/config/php.ini:/usr/local/etc/php/php.ini
     networks:
-      - laravel
+      - easily
 
   redis:
     image: redis:alpine
     ports:
       - "6379:6379"
     networks:
-      - laravel
+      - easily
 
   composer:
     build:
@@ -81,9 +81,9 @@ services:
       - ${SERVER_ROOT}:/var/www/html
     depends_on:
       - php
-    entrypoint: [ 'composer', '--ignore-platform-reqs' ]
+    entrypoint: [ 'composer', 'i', '--ignore-platform-reqs' ]
     networks:
-      - laravel
+      - easily
 
   npm:
     image: node:current-alpine
@@ -96,7 +96,7 @@ services:
     working_dir: /var/www/html
     entrypoint: [ 'npm', 'run', 'watch' ]
     networks:
-      - laravel
+      - easily
 
   artisan:
     build:
@@ -111,7 +111,7 @@ services:
       - mysql
     entrypoint: [ 'php', '/var/www/html/artisan' ]
     networks:
-      - laravel
+      - easily
 
   mailhog:
     image: mailhog/mailhog:latest
@@ -119,4 +119,4 @@ services:
       - "1025:1025"
       - "8025:8025"
     networks:
-      - laravel
+      - easily

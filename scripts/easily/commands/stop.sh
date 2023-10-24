@@ -16,10 +16,6 @@ function easily.stop() {
 
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
 
-  local docker_compose="~/code/docker/projects/${project_id}/docker-compose.yml"
-  local project_alias="$(tr "[A-Z]" "[a-z]" <<< "${project_name}")"
-  local command="docker-compose -f $docker_compose"
-
   echo.info "Stopping ${project_name}..."
 
   eval "${command} -p ${project_alias} kill"

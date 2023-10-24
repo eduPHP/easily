@@ -12,6 +12,11 @@ function easily.start() {
 
   local LOCK="${EASILY_ROOT}/.easily.running.lock"
 
+  # create network if it doesn't exist
+  if [ -z $(docker network ls --format "{{.Name}}" | grep easily) ]; then
+      docker network create easily --attachable
+  fi
+
   # stop previously running project
   if [ -f "$LOCK" ]; then
     source "${EASILY_ROOT}/.easily.running.lock"

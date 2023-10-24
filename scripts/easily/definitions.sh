@@ -24,5 +24,5 @@ if [ -z $project_name ]; then
 fi
 
 local project_alias="$(echo "${project_name}" | sed 's/[- ]/_/g' | sed 's/[A-Z]/\l&/g' )"
-local docker_compose="${project_dir}/docker-compose.yml"
+local docker_compose="${project_dir}/compose.yaml"
 local command="docker compose -f $docker_compose"

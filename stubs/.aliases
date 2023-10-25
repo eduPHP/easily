@@ -1,7 +1,8 @@
 alias rebuild="$command build --no-cache --pull"
-alias composer="$command run php composer"
-alias npm="$command run npm npm"
-alias php="$command run php php"
+alias restart="$command restart --no-cache"
+alias composer="$command run --rm php composer"
+alias npm="$command run --rm npm npm"
+alias php="$command run --rm php php"
 alias art="php /var/www/html/artisan"
 
 alias p="art test --parallel --processes 6 --exclude-group TBD,demo,legacyImports"

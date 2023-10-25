@@ -59,6 +59,8 @@ If you don't know how to do it, there are plenty of [tutorials on Google](https:
 
 ### TO-DO
 
+- [ ] use a single nginx stance to serve the projects
+- [ ] allow for multiple containers to run at the same time
 - [ ] "update" command that pulls the latest changes and re-source
 - [ ] a command to upgrade/downgrade php/npm versions
 - [ ] a command to dump/restore the main database

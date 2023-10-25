@@ -3,7 +3,7 @@ alias restart="$command restart --no-cache"
 alias composer="$command run --rm php composer"
 alias npm="$command run --rm npm npm"
 alias php="$command run --rm php php"
-alias art="php /var/www/html/artisan"
+alias art="php artisan"
 
 alias p="art test --parallel --processes 6 --exclude-group TBD,demo,legacyImports"
 alias pf="art test --fi"

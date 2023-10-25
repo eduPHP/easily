@@ -35,10 +35,10 @@ function easily.start() {
     eval "sh ${EASILY_ROOT}/scripts/cert.sh ${project_id}"
   fi
 
+  source "${EASILY_ROOT}/stubs/.aliases"
+
   if [ -f "${project_dir}/.aliases" ]; then
     source "${project_dir}/.aliases"
-  else
-    source "${EASILY_ROOT}/stubs/.aliases"
   fi
 
   source "$project_dir/.env"

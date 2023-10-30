@@ -1,0 +1,20 @@
+###################################
+#  AUTO-GENERATED, DON'T MODIFY!  #
+###################################
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name {DOMAIN};
+    index index.php index.html;
+    root /app/{PROJECT_ID}/public;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    ssl_certificate /etc/nginx/certs/{DOMAIN}.crt;
+    ssl_certificate_key /etc/nginx/certs/{DOMAIN}.key;
+
+    include /etc/nginx/includes/php{PHP_VERSION}/laravel.conf;
+}

@@ -1,0 +1,30 @@
+###################################
+#  AUTO-GENERATED, DON'T MODIFY!  #
+###################################
+
+version: '3'
+
+networks:
+  easily:
+    external: true
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ../config/nginx/Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../config/nginx/conf.d:/etc/nginx/conf.d/
+      - ../config/nginx/includes:/etc/nginx/includes
+      - ../config/nginx/sites:/etc/nginx/sites-enabled
+      - ../config/nginx/certs:/etc/nginx/certs
+      {VOLUMES}
+    networks:
+      - easily

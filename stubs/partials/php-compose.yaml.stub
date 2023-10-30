@@ -1,0 +1,25 @@
+###################################
+#  AUTO-GENERATED, DON'T MODIFY!  #
+###################################
+
+version: '3'
+
+networks:
+  easily:
+    external: true
+
+services:
+  php{PHP_VERSION}:
+    container_name: php{PHP_VERSION}
+    build:
+      context: .
+      dockerfile: ../config/php/{PHP_VERSION}/Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    ports:
+      - "9081:9081"
+    volumes:
+      {VOLUMES}
+    networks:
+      - easily

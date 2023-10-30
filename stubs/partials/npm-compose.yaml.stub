@@ -1,0 +1,18 @@
+###################################
+#  AUTO-GENERATED, DON'T MODIFY!  #
+###################################
+
+version: '3'
+
+networks:
+  easily:
+    external: true
+
+services:
+  npm:
+    container_name: npm
+    image: node:current-alpine
+    volumes:
+      { VOLUMES }
+    networks:
+      - easily

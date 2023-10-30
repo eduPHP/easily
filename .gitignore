@@ -1,6 +1,9 @@
 mysql
-config/nginx/rootCA.*
+config/nginx/certs/*
+config/nginx/sites/*
 projects/*
+compose/*.yaml
+!compose/global-compose.yaml
 .DS_Store
 .idea
 .easily.running.lock

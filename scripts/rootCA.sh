@@ -7,11 +7,11 @@ echo "Generating rootCA..."
 
 openssl genrsa -des3 \
   -passout pass:secret \
-  -out "${EASILY_ROOT}/config/nginx/rootCA.key" 2048
+  -out "${EASILY_ROOT}/config/nginx/certs/rootCA.key" 2048
 
 openssl req -x509 -new -nodes \
-  -key "${EASILY_ROOT}/config/nginx/rootCA.key" \
+  -key "${EASILY_ROOT}/config/nginx/certs/rootCA.key" \
   -sha256 -days 1825 \
   -passin pass:secret \
-  -out "${EASILY_ROOT}/config/nginx/rootCA.pem" \
+  -out "${EASILY_ROOT}/config/nginx/certs/rootCA.pem" \
   -subj "/C=CA/ST=Canada/L=Canada/O=IT/CN=server.example.com"

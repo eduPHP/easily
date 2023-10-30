@@ -6,21 +6,24 @@ ARG GID
 ENV UID=${UID}
 ENV GID=${GID}
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /app
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # MacOS staff group's gid is 20, so is the dialout group in alpine linux. We're not using it, let's just remove it.
 RUN delgroup dialout
 
-RUN addgroup -g ${GID} --system laravel
-RUN adduser -G laravel --system -D -s /bin/sh -u ${UID} laravel
+RUN addgroup -g ${GID} --system laravel && \
+    adduser -G laravel --system -D -s /bin/sh -u ${UID} laravel
 
-RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.conf
-RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
-RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf && \
+    cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini  && \
+    sed -i "s/memory_limit = 128M/memory_limit = 512M/g" /usr/local/etc/php/php.ini && \
+    sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9081/g" /usr/local/etc/php-fpm.d/www.conf && \
+    echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
 RUN apk add --no-cache libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev libzip-dev && \
             docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \

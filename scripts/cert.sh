@@ -1,8 +1,10 @@
 #!/usr/bin/zsh
-
 EASILY_ROOT="${HOME}/code/docker"
-rootpem="${EASILY_ROOT}/config/nginx/rootCA.pem"
-rootkey="${EASILY_ROOT}/config/nginx/rootCA.key"
+
+path="${EASILY_ROOT}/config/nginx/certs"
+
+rootpem="${EASILY_ROOT}/config/nginx/certs/rootCA.pem"
+rootkey="${EASILY_ROOT}/config/nginx/certs/rootCA.key"
 
 if [ ! -f $rootpem ]; then
   echo "$rootpem doesn't exist, creating it."
@@ -18,12 +20,10 @@ if [ "$#" -eq  "0" ]
      domain=$1
  fi
 
-path="${EASILY_ROOT}/projects/${domain}/certs"
-mkdir -p $path
-keyfile="${path}/cert.key"
-csrfile="${path}/cert.csr"
-crtfile="${path}/cert.crt"
-extfile="${path}/config.ext"
+keyfile="${path}/${domain}.key"
+csrfile="${path}/${domain}.csr"
+crtfile="${path}/${domain}.crt"
+extfile="${path}/${domain}.ext"
 
 openssl genrsa -out $keyfile 2048
 openssl req -new \
@@ -31,12 +31,12 @@ openssl req -new \
   -out $csrfile \
   -subj "/C=CA/ST=Canada/L=Canada/O=IT/CN=server.example.com"
 echo "authorityKeyIdentifier=keyid,issuer
-      basicConstraints=CA:FALSE
-      keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
-      subjectAltName = @alt_names
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
 
-      [alt_names]
-      DNS.1 = ${domain}.test" > "${path}/config.ext"
+[alt_names]
+DNS.1 = ${domain}" > $extfile
 
 openssl x509 -req \
   -in $csrfile \

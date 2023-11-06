@@ -14,4 +14,4 @@ openssl req -x509 -new -nodes \
   -sha256 -days 1825 \
   -passin pass:secret \
   -out "${EASILY_ROOT}/config/nginx/rootCA.pem" \
-  -subj "/C=CA/ST=Canada/L=Canada/O=IT/CN=server.example.com"
+  -subj "/O=Acme/C=CA/ST=Canada/L=Canada/O=IT/CN=server.example.com"

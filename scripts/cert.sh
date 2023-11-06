@@ -36,7 +36,7 @@ echo "authorityKeyIdentifier=keyid,issuer
       subjectAltName = @alt_names
 
       [alt_names]
-      DNS.1 = ${domain}.test" > "${path}/config.ext"
+      DNS.1 = ${domain}.test" > $extfile
 
 openssl x509 -req \
   -in $csrfile \

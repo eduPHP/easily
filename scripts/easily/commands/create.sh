@@ -31,9 +31,9 @@ function easily.create() {
   cp "${EASILY_ROOT}/stubs/compose.yaml" "${project_dir}/compose.yaml"
 
 #  clear
-  success "Created ${project_id}, what's next?"
+  echo.success "Created ${project_id}, what's next?"
   echo.info "Edit ${env_path} with the project information"
-#  echo.info "sudo sh -c \"echo 127.0.0.1 ${project_id}.test >> /etc/hosts\""
+  echo.info "sudo sh -c \"echo 127.0.0.1 ${project_id}.test >> /etc/hosts\""
   echo.info "easily start ${project_id}"
 }
 

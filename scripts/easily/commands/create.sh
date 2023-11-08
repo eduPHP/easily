@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 EASILY_ROOT="${HOME}/code/docker"
 
 function easily.create() {
@@ -33,7 +35,6 @@ function easily.create() {
 #  clear
   echo.success "Created ${project_id}, what's next?"
   echo.info "Edit ${env_path} with the project information"
-  echo.info "sudo sh -c \"echo 127.0.0.1 ${project_id}.test >> /etc/hosts\""
   echo.info "easily start ${project_id}"
 }
 

@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 EASILY_ROOT="${HOME}/code/docker"
 
 function easily.stop() {

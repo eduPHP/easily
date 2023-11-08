@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 alias rebuild="$command build --no-cache --pull"
 alias restart="$command restart"
 alias composer="$command run --rm php composer"

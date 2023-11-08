@@ -1,6 +1,7 @@
 mysql
 config/nginx/rootCA.*
 projects/*
+!projects/config.json
 .DS_Store
 .idea
 .easily.running.lock

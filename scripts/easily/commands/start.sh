@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 EASILY_ROOT="${HOME}/code/docker"
 
 function easily.start() {
@@ -30,9 +32,9 @@ function easily.start() {
   echo.info "Setting up ${project_name}..."
 
   # Create local dertificates if it doesn't exist
-  if [ ! -f "${project_dir}/certs/cert.csr" ]; then
+  if [ ! -f "${project_dir}/certs/${input_name}.test.csr" ]; then
     echo.info "Certificates doesn't exist, creating..."
-    eval "sh ${EASILY_ROOT}/scripts/cert.sh ${project_id}"
+    eval "sh ${EASILY_ROOT}/scripts/cert.sh ${project_id} ${input_name}"
   fi
 
   source "${EASILY_ROOT}/stubs/.aliases"
@@ -52,7 +54,6 @@ function easily.start() {
 
   eval ${command} -p ${project_alias} up -d
   echo.success "${project_name} initialized!"
-
   echo "EASILY_RUNNING=$project_id" > $LOCK
 }
 

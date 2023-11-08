@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 EASILY_ROOT="${HOME}/code/docker"
 

@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
 EASILY_ROOT="${HOME}/code/docker"
 rootpem="${EASILY_ROOT}/config/nginx/rootCA.pem"
@@ -10,20 +10,26 @@ if [ ! -f $rootpem ]; then
 fi
 
 # from https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
-if [ "$#" -eq  "0" ]
-   then
+if [ "$#" -eq  "0" ]; then
      echo "which domain would you like to use?"
      read domain
+     project=$domain
  else
+     project=$1
      domain=$1
  fi
 
-path="${EASILY_ROOT}/projects/${domain}/certs"
+path="${EASILY_ROOT}/projects/${project}/certs"
 mkdir -p $path
-keyfile="${path}/cert.key"
-csrfile="${path}/cert.csr"
-crtfile="${path}/cert.crt"
-extfile="${path}/config.ext"
+
+ if [ "$#" -eq  "2"  ]; then
+   domain=$2
+ fi
+
+keyfile="${path}/${domain}.test.key"
+csrfile="${path}/${domain}.test.csr"
+crtfile="${path}/${domain}.test.crt"
+extfile="${path}/${domain}.ext"
 
 openssl genrsa -out $keyfile 2048
 openssl req -new \
@@ -31,12 +37,12 @@ openssl req -new \
   -out $csrfile \
   -subj "/C=CA/ST=Canada/L=Canada/O=IT/CN=server.example.com"
 echo "authorityKeyIdentifier=keyid,issuer
-      basicConstraints=CA:FALSE
-      keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
-      subjectAltName = @alt_names
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
 
-      [alt_names]
-      DNS.1 = ${domain}.test" > $extfile
+[alt_names]
+DNS.1 = ${domain}.test" > $extfile
 
 openssl x509 -req \
   -in $csrfile \

@@ -52,9 +52,10 @@ function easily.start() {
       return 1
   fi
 
-  eval ${command} -p ${project_alias} up -d
+  eval ${command} -p ${project_alias} up -d --remove-orphans
   echo.success "${project_name} initialized!"
   echo "EASILY_RUNNING=$project_id" > $LOCK
+#  python3 -m webbrowser "https://${domain}"
 }
 
 easily.start $2

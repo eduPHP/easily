@@ -25,10 +25,19 @@ if [ -z $project_name ]; then
   local project_name=$input_name
 fi
 
-local domain_status=$(curl -s -o /dev/null --cacert $EASILY_ROOT/config/nginx/rootCA.pem -w "%{http_code}" https://$input_name.test)
-if [ $domain_status = "000" ]; then
+if [ $project_name = "manager" ]; then
+  source "$project_dir/.env"
+  if [ -z $DOCKER_GID ]; then
+    local docker_gid = "$(getent group docker | cut -d: -f3)"
+    echo "DOCKER_GID=$docker_gid" >> "$project_dir/.env"
+  fi
+fi
+
+local domain="$input_name.test"
+
+if ! ping -c 1 $domain | grep '127.0.0.1' > /dev/null; then
   echo.warning "Run the command below to get your local domain working:"
-  echo.warning "sudo sh -c \"echo 127.0.0.1 ${input_name}.test >> /etc/hosts\""
+  echo.warning "sudo sh -c \"echo 127.0.0.1 ${domain} >> /etc/hosts\""
 fi
 
 local project_alias="$(echo "${project_name}" | sed 's/[- ]/_/g' | sed 's/[A-Z]/\l&/g' )"

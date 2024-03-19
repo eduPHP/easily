@@ -22,12 +22,14 @@ RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.con
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
-RUN apk add --no-cache libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev libzip-dev && \
+RUN apk add --no-cache libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev libzip-dev icu-dev && \
             docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
             docker-php-ext-install gd && \
             docker-php-ext-configure pcntl --enable-pcntl && \
             docker-php-ext-install pcntl && \
-            docker-php-ext-install pdo pdo_mysql zip
+            docker-php-ext-configure intl && \
+            docker-php-ext-install intl && \
+            docker-php-ext-install pdo pdo_mysql zip bcmath
 
 RUN mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \

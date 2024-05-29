@@ -20,19 +20,19 @@ function easily.db() {
         easily.db.restore $project
         return 0
         ;;
-    "recreate")
-        easily.db.recreate $project
+    "init")
+        easily.db.init $project
         return 0
         ;;
     *)
-        echo.danger "usage: easily db restore|backup|recreate"
+        echo.danger "usage: easily db restore|backup|init"
         easily help
         return 0
         ;;
     esac
 }
 
-function easily.db.recreate() {
+function easily.db.init() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
   source "${project_dir}/.env"
 
@@ -40,6 +40,12 @@ function easily.db.recreate() {
 
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
+
+  if [ ! -f $config ]; then
+      mkdir -p "$scriptsFolder/data"
+      cp "${EASILY_ROOT}/stubs/db-config.cnf" "$scriptsFolder/config.cnf"
+  fi
+
   $mysqlRuntime --defaults-file=$config -e "DROP DATABASE IF EXISTS $DB_DATABASE;"
   $mysqlRuntime --defaults-file=$config -e "CREATE DATABASE $DB_DATABASE DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT ENCRYPTION='N';"
   easily.db.restore $1

@@ -25,14 +25,6 @@ if [ -z $project_name ]; then
   local project_name=$input_name
 fi
 
-if [ $project_name = "manager" ]; then
-  source "$project_dir/.env"
-  if [ -z $DOCKER_GID ]; then
-    local docker_gid = "$(getent group docker | cut -d: -f3)"
-    echo "DOCKER_GID=$docker_gid" >> "$project_dir/.env"
-  fi
-fi
-
 local domain="$input_name.test"
 
 if ! ping -c 1 $domain | grep '127.0.0.1' > /dev/null; then

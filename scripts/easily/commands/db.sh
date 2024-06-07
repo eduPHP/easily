@@ -60,7 +60,7 @@ function easily.db.restore() {
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
 
-  for filename in $scriptsFolder/*.sql; do
+  for filename in $scriptsFolder/*-latest.sql; do
       echo.info "running $(basename ${filename})"
       $mysqlRuntime --defaults-file=$config $DB_DATABASE < "$filename"
   done
@@ -76,7 +76,13 @@ function easily.db.backup() {
   mysqldumpRuntime="${EASILY_ROOT}/bin/mysqlpump"
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
-  backupFileName="$scriptsFolder/01-latest-backup-${project_alias}.sql"
+  backupFileName="$scriptsFolder/01-backup-${project_alias}-latest.sql"
+  if [ -f $backupFileName ]; then
+    date=$(date -r $backupFileName '+%Y%m%d%H%M%S')
+    newName="01-backup-${project_alias}-${date}.sql"
+    echo.info "moving latest backup to $newName"
+    mv $backupFileName "$scriptsFolder/$newName"
+  fi
   $mysqldumpRuntime --defaults-file=$config $DB_DATABASE --result-file=$backupFileName --skip-add-locks --add-drop-table
   echo.success "backup complete on file $(basename ${backupFileName})"
 }

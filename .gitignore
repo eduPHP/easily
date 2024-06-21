@@ -1,4 +1,5 @@
 mysql
+config/database.sqlite
 config/nginx/rootCA.*
 projects/*
 !projects/config.json

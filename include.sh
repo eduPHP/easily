@@ -20,3 +20,5 @@ function easily() {
   echo "\"$action\" Invalid argument";
   easily help
 }
+
+alias e=easily

@@ -2,7 +2,8 @@
   "aliases": {
     "fidelis": "fidelis-elite",
     "fe": "fidelis-elite",
-    "retrieve": "flexgap"
+    "retrieve": "flexgap",
+    "example": "example-app"
   },
   "names": {
     "fidelis-elite": "Fidelis"

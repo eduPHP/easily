@@ -1,4 +1,3 @@
-#!/usr/bin/bash
 
 function echo.info() {
   echo -e "\033[0;44m INFO \033[m $1"

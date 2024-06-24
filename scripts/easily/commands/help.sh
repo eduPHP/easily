@@ -1,4 +1,3 @@
-#!/usr/bin/bash
 
 echo "Usage: easily [start|stop|create|remove|db] {project}";
 echo "- start {project}\t Starts the project";

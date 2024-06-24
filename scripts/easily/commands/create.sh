@@ -1,4 +1,3 @@
-#!/usr/bin/bash
 
 EASILY_ROOT="${HOME}/code/docker"
 

@@ -1,4 +1,3 @@
-
 EASILY_ROOT="${HOME}/code/docker"
 
 function easily.create() {

@@ -1,4 +1,3 @@
-
 EASILY_ROOT="${HOME}/code/docker"
 
 function easily.db() {
@@ -72,7 +71,7 @@ function easily.db.backup() {
   source "${project_dir}/.env"
 
   echo.info "backing up database $DB_DATABASE"
-  mysqldumpRuntime="${EASILY_ROOT}/bin/mysqlpump"
+  mysqldumpRuntime="${EASILY_ROOT}/bin/mysqldump"
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
   backupFileName="$scriptsFolder/01-backup-${project_alias}-latest.sql"

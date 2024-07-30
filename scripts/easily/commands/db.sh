@@ -53,11 +53,14 @@ function easily.db.restore() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
   source "${project_dir}/.env"
 
-  echo.info "restoring $DB_DATABASE backup"
   mysqlRuntime="${EASILY_ROOT}/bin/mysql"
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
 
+  echo.info "resetting $DB_DATABASE"
+  $mysqlRuntime --defaults-file=$config -e "DROP DATABASE $DB_DATABASE; CREATE DATABASE IF NOT EXISTS ${DB_DATABASE};"
+
+  echo.info "restoring $DB_DATABASE backup"
   for filename in $scriptsFolder/*-latest.sql; do
       echo.info "running $(basename ${filename})"
       $mysqlRuntime --defaults-file=$config $DB_DATABASE < "$filename"

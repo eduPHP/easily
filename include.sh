@@ -1,4 +1,5 @@
 EASILY_ROOT="${HOME}/code/docker"
+
 export PATH=$EASILY_ROOT/bin:$PATH
 
 function easily() {

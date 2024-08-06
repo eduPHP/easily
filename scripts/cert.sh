@@ -1,4 +1,3 @@
-
 EASILY_ROOT="${HOME}/code/docker"
 rootpem="${EASILY_ROOT}/config/nginx/rootCA.pem"
 rootkey="${EASILY_ROOT}/config/nginx/rootCA.key"

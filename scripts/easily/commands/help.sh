@@ -1,4 +1,3 @@
-
 echo "Usage: easily [start|stop|create|remove|db] {project}";
 echo "- start {project}\t Starts the project";
 echo "- stop {?project}\t Stops the given project or the project currently running";

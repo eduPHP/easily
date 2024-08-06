@@ -1,4 +1,3 @@
-
 EASILY_ROOT="${HOME}/code/docker"
 
 local projects_dir="${EASILY_ROOT}/projects"
@@ -27,8 +26,8 @@ fi
 local domain="$input_name.test"
 
 if ! ping -c 1 $domain | grep '127.0.0.1' > /dev/null; then
-  echo.warning "Run the command below to get your local domain working:"
-  echo.warning "sudo sh -c \"echo 127.0.0.1 ${domain} >> /etc/hosts\""
+  echo.warning "Adding to /etc/hosts, please input your root password:"
+  sudo sh -c "echo 127.0.0.1 ${domain} >> /etc/hosts"
 fi
 
 local project_alias="$(echo "${project_name}" | sed 's/[- ]/_/g' | sed 's/[A-Z]/\l&/g' )"

@@ -6,3 +6,5 @@ projects/*
 .DS_Store
 .idea
 .easily.running.lock
+
+/vendor/

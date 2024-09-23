@@ -1,5 +1,4 @@
 EASILY_ROOT="${HOME}/code/docker"
-
 function easily.db() {
     local LOCK="${EASILY_ROOT}/.easily.running.lock"
     project=$2
@@ -29,37 +28,28 @@ function easily.db() {
         ;;
     esac
 }
-
 function easily.db.init() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
   source "${project_dir}/.env"
-
   echo.info "recreating $DB_DATABASE"
-
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
-
   if [ ! -f $config ]; then
       mkdir -p "$scriptsFolder/data"
       cp "${EASILY_ROOT}/stubs/db-config.cnf" "$scriptsFolder/config.cnf"
   fi
-
   $mysqlRuntime --defaults-file=$config -e "DROP DATABASE IF EXISTS $DB_DATABASE;"
   $mysqlRuntime --defaults-file=$config -e "CREATE DATABASE $DB_DATABASE DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT ENCRYPTION='N';"
   easily.db.restore $1
 }
-
 function easily.db.restore() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
   source "${project_dir}/.env"
-
   mysqlRuntime="${EASILY_ROOT}/bin/mysql"
   scriptsFolder="${project_dir}/database"
   config="$scriptsFolder/config.cnf"
-
   echo.info "resetting $DB_DATABASE"
   $mysqlRuntime --defaults-file=$config -e "DROP DATABASE $DB_DATABASE; CREATE DATABASE IF NOT EXISTS ${DB_DATABASE};"
-
   echo.info "restoring $DB_DATABASE backup"
   for filename in $scriptsFolder/*-latest.sql; do
       echo.info "running $(basename ${filename})"
@@ -68,11 +58,9 @@ function easily.db.restore() {
   art migrate
   echo.success "restored"
 }
-
 function easily.db.backup() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
   source "${project_dir}/.env"
-
   echo.info "backing up database $DB_DATABASE"
   mysqldumpRuntime="${EASILY_ROOT}/bin/mysqldump"
   scriptsFolder="${project_dir}/database"
@@ -87,5 +75,4 @@ function easily.db.backup() {
   $mysqldumpRuntime --defaults-file=$config $DB_DATABASE --result-file=$backupFileName --skip-add-locks --add-drop-table
   echo.success "backup complete on file $(basename ${backupFileName})"
 }
-
 easily.db $2

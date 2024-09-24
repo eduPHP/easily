@@ -16,7 +16,7 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - type: bind
-        source: ./database/data
+        source: ./mysql/data
         target: /var/lib/mysql
     entrypoint:
       sh -c "

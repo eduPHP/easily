@@ -1,4 +1,6 @@
 mysql
+config/mysql/data/*
+config/nginx/certs/*
 config/database.sqlite
 config/nginx/rootCA.*
 projects/*

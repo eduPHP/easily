@@ -11,7 +11,7 @@ function easily.remove() {
   read response
   if [[ "$response" =~ ^([yY][sS]|[yY])$ ]]; then
     echo.info "Removing ${project_name}"
-    eval "${command} -p ${project_alias} rm -fsv"
+    eval "${command} -p ${project_id} rm -fsv"
     rm -rf "${EASILY_ROOT}/projects/${project_id}"
     echo.success "Removed ${project_name}"
   else

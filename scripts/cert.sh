@@ -14,14 +14,14 @@ if [ "$#" -eq  "0" ]; then
      project=$1
      domain=$1
  fi
-path="${EASILY_ROOT}/projects/${project}/certs"
+path="${EASILY_ROOT}/config/nginx/certs"
 mkdir -p $path
  if [ "$#" -eq  "2"  ]; then
    domain=$2
  fi
-keyfile="${path}/${domain}.test.key"
-csrfile="${path}/${domain}.test.csr"
-crtfile="${path}/${domain}.test.crt"
+keyfile="${path}/${domain}.key"
+csrfile="${path}/${domain}.csr"
+crtfile="${path}/${domain}.crt"
 extfile="${path}/${domain}.ext"
 openssl genrsa -out $keyfile 2048
 openssl req -new \
@@ -33,7 +33,7 @@ basicConstraints=CA:FALSE
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
 [alt_names]
-DNS.1 = ${domain}.test" > $extfile
+DNS.1 = ${domain}" > $extfile
 openssl x509 -req \
   -in $csrfile \
   -CA $rootpem \

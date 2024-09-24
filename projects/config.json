@@ -1,7 +1,21 @@
 {
+  "projects":{
+    "/home/edu/code/s90/fidelis-elite": {
+      "id": "fidelis",
+      "name": "Fidelis Elite",
+      "domain": "fidelis.test",
+      "database": "fidelis_elite",
+      "php": "8.1"
+    },
+    "/home/edu/code/s90/allied-hq": {
+      "id": "allied",
+      "name": "Allied HQ",
+      "domain": "allied.test",
+      "database": "allied-hq",
+      "php": "8.1"
+    }
+  },
   "aliases": {
-    "fidelis": "fidelis-elite",
-    "fe": "fidelis-elite",
     "retrieve": "flexgap"
   },
   "names": {

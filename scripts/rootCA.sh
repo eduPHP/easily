@@ -1,4 +1,4 @@
-EASILY_ROOT="${HOME}/code/docker"
+source "${HOME}/.config/easily/.env"
 # from https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
 echo "Generating rootCA..."
 openssl genrsa -des3 \

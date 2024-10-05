@@ -1,4 +1,4 @@
-EASILY_ROOT="${HOME}/code/docker"
+source "${HOME}/.config/easily/.env"
 function easily.db() {
     case "$1" in
     "backup")
@@ -30,9 +30,9 @@ function easily.db.init() {
       mkdir -p "$scripts_folder/data"
       echo "[client]\n user = \"${DB_USERNAME}\"\n password = \"${DB_PASSWORD}\"\n host = \"${DB_HOST}\"\n" > "$scripts_folder/config.cnf"
   fi
+  $mysql_runtime --defaults-file=$config < ${EASILY_ROOT}/stubs/global.sql
   $mysql_runtime --defaults-file=$config -e "CREATE DATABASE IF NOT EXISTS ${DB_DATABASE};"
   $mysql_runtime --defaults-file=$config -e "CREATE DATABASE IF NOT EXISTS ${DB_DATABASE}_testing;"
-  easily.db.restore
 }
 function easily.db.restore() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0

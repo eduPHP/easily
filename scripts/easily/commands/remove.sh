@@ -1,4 +1,4 @@
-EASILY_ROOT="${HOME}/code/docker"
+source "${HOME}/.config/easily/.env"
 function easily.remove() {
   if [ $# -eq 0 ]
     then

@@ -1,5 +1,35 @@
-EASILY_ROOT="${HOME}/code/docker"
+source "${HOME}/.config/easily/.env"
+source "${EASILY_ROOT}/scripts/easily/database.sh"
 function easily.create() {
+  root=$(pwd)
+  sql="select * from projects where root = '${root}';"
+  mysql_runtime="${EASILY_ROOT}/bin/mysql"
+  config="${HOME}/.config/easily/db.cnf"
+  if [ ! -f $config ]; then
+      mkdir -p "$scripts_folder/data"
+      echo "[client]\n user = \"root\"\n password = \"secret\"\n host = \"localhost\"\n" > $config
+  fi
+  exec $mysql_runtime --defaults-file=$config < ${EASILY_ROOT}/stubs/global.sql
+  data=`$mysql_runtime --defaults-file=$config easily -e "$sql"  -B --skip-column-names`
+  return 1
+  name=$(echo $data | awk '{print $2}')
+  slug=$(echo $data | awk '{print $3}')
+  domain=$(echo $data | awk '{print $4}')
+  php=$(echo $data | awk '{print $5}')
+  nginx=$(cat "${EASILY_ROOT}/stubs/nginx.conf")
+  nginx=$(awk -v s="{EASILY_ROOT}" -v r="${EASILY_ROOT}" '{sub(s,r)}1' <<< $nginx)
+  nginx=$(awk -v s="{slug}" -v r="${slug}" '{sub(s,r)}1' <<< $nginx)
+  nginx=$(awk -v s="{root}" -v r="${root}" '{sub(s,r)}1' <<< $nginx)
+  nginx=$(awk -v s="{domain}" -v r="${domain}" '{sub(s,r)}1' <<< $nginx)
+  nginx=$(awk -v s="{php}" -v r="${php}" '{sub(s,r)}1' <<< $nginx)
+
+#  if [ -z $(update-alternatives --list php | grep $php) ]; then
+#    echo "php ${php} not installed"
+#    return 1
+#  fi
+
+echo $nginx
+  return 1
   if [ $# -eq 0 ]
     then
       echo -e "Please, input a project name"

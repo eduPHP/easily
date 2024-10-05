@@ -1,5 +1,23 @@
-EASILY_ROOT="${HOME}/code/docker"
-export PATH=$EASILY_ROOT/bin:$PATH
+easilyENV="${HOME}/.config/easily/.env"
+if [ ! -f "$easilyENV" ]; then
+    mkdir -p "${HOME}/.config/easily"
+    touch $easilyENV
+fi
+selfArg="$BASH_SOURCE"
+if [ -z "$selfArg" ]; then
+    selfArg="$0"
+fi
+
+self=$(realpath $selfArg 2> /dev/null)
+if [ -z "$self" ]; then
+    self="$selfArg"
+fi
+
+EASILY_ROOT=$(cd "${self%[/\\]*}" > /dev/null; pwd)
+
+echo "EASILY_ROOT=${EASILY_ROOT}\n" > $easilyENV
+source $easilyENV
+
 function easily() {
   source "${EASILY_ROOT}/scripts/easily/functions.sh"
   if [ -z $1 ]; then

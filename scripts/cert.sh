@@ -1,4 +1,4 @@
-EASILY_ROOT="${HOME}/code/docker"
+source "${HOME}/.config/easily/.env"
 rootpem="${EASILY_ROOT}/config/nginx/rootCA.pem"
 rootkey="${EASILY_ROOT}/config/nginx/rootCA.key"
 if [ ! -f $rootpem ]; then

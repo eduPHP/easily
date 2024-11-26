@@ -15,7 +15,7 @@ fi
 
 EASILY_ROOT=$(cd "${self%[/\\]*}" > /dev/null; pwd)
 
-echo "EASILY_ROOT=${EASILY_ROOT}\n" > $easilyENV
+echo "EASILY_ROOT=${EASILY_ROOT}" > $easilyENV
 source $easilyENV
 
 function easily() {
@@ -32,4 +32,6 @@ function easily() {
   echo "\"$action\" Invalid argument";
   easily help
 }
+#alias e="bash -c 'source ${EASILY_ROOT%,}/include.sh && easily' $@"
+# need to `sudo apt install jq`
 alias e=easily

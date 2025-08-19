@@ -1,9 +1,8 @@
-source "${HOME}/.config/easily/.env"
 rootpem="${EASILY_ROOT}/config/nginx/rootCA.pem"
 rootkey="${EASILY_ROOT}/config/nginx/rootCA.key"
 if [ ! -f $rootpem ]; then
   echo "$rootpem doesn't exist, creating it."
-  sh $EASILY_ROOT/scripts/rootCA.sh
+  EASILY_ROOT=$EASILY_ROOT sh -c "${EASILY_ROOT}/scripts/rootCA.sh"
 fi
 # from https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
 if [ "$#" -eq  "0" ]; then

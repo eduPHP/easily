@@ -1,4 +1,5 @@
 source "${HOME}/.config/easily/.env"
+
 function easily.start() {
   # create network if it doesn't exist
   if [ -z $(docker network ls --format "{{.Name}}" | grep easily) ]; then
@@ -9,10 +10,12 @@ function easily.start() {
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
 
   echo.info "Setting up Easily..."
-  # Create local dertificates if it doesn't exist
+  # Create local certificates if it doesn't exist
+  echo "root: ${EASILY_ROOT} domain: ${domain}"
+  return 1
   if [ ! -f "${EASILY_ROOT}/config/nginx/certs/${domain}.csr" ]; then
     echo.info "Certificates doesn't exist, creating..."
-    exec "sh ${EASILY_ROOT}/scripts/cert.sh easily ${domain}"
+    EASILY_ROOT=$EASILY_ROOT /usr/bin/bash -c "${EASILY_ROOT}/scripts/cert.sh ${domain} ${domain}"
   fi
   source "${EASILY_ROOT}/stubs/.aliases"
   if [ -f "${project_dir}/.aliases" ]; then

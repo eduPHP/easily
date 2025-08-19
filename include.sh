@@ -1,8 +1,6 @@
 easilyENV="${HOME}/.config/easily/.env"
-if [ ! -f "$easilyENV" ]; then
-    mkdir -p "${HOME}/.config/easily"
-    touch $easilyENV
-fi
+mkdir -p "${HOME}/.config/easily"
+touch $easilyENV
 selfArg="$BASH_SOURCE"
 if [ -z "$selfArg" ]; then
     selfArg="$0"

@@ -13,6 +13,14 @@ function easily.db() {
         easily.db.init
         return 0
         ;;
+    "start")
+        eval docker compose -f ${EASILY_ROOT}/config/compose.yaml -p easily up -d --remove-orphans mysql
+        return 0
+        ;;
+    "stop")
+        eval docker compose -f ${EASILY_ROOT}/config/compose.yaml -p easily kill --remove-orphans mysql
+        return 0
+        ;;
     *)
         echo.danger "usage: easily db restore|backup|init"
         easily help

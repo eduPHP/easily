@@ -13,7 +13,7 @@ function easily.stop() {
   fi
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
   echo.info "Stopping ${project_name}..."
-  eval "${command} -p ${project_id} kill"
+  eval "${command} -p ${project_id} stop"
   # unset aliases
   unalias composer 2>/dev/null
   unalias npm 2>/dev/null

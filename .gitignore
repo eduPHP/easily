@@ -1,4 +1,5 @@
 config/mysql/data/*
+config/postgres/data/*
 config/nginx/certs/*
 config/nginx/rootCA.*
 projects/*

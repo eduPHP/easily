@@ -28,6 +28,26 @@ services:
     networks:
       - easily
 
+  postgres:
+    image: postgres:16
+    tty: true
+    user: "1000:1000"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: easily
+      POSTGRES_USER: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+      SERVICE_TAGS: dev
+      SERVICE_NAME: postgres
+    volumes:
+      - type: bind
+        source: ./postgres/data
+        target: /var/lib/postgresql/data
+    networks:
+      - easily
+
   redis:
     image: redis:alpine
     ports:

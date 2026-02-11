@@ -7,6 +7,15 @@
       "database": "fidelis_elite",
       "php": "8.1"
     },
+
+      "/home/edu/code/portfolio-projects/ai-resume-reviewer": {
+      "id": "ai-resume-reviewer",
+      "name": "AI Resume Optimizer",
+      "domain": "optimizer.test",
+      "database": "resume_optimizer",
+      "php": "8.4"
+    },
+
     "/home/edu/code/neonbang/allied-hq": {
       "id": "allied",
       "name": "Allied HQ",

@@ -2,11 +2,19 @@ source "${HOME}/.config/easily/.env"
 easily.database() {
   mysql_runtime="${EASILY_ROOT}/bin/mysql"
   config="${HOME}/.config/easily/db.cnf"
-  if [ ! -f $config ]; then
-      mkdir -p "$scripts_folder/data"
-      echo "[client]\n user = \"root\"\n password = \"secret\"\n host = \"localhost\"\n" > $config
+
+  mkdir -p "$(dirname "${config}")"
+
+  if [ ! -f "${config}" ]; then
+      cat > "${config}" << EOF
+[client]
+user = "root"
+password = "secret"
+host = "localhost"
+EOF
   fi
-  $($mysql_runtime --defaults-file=$config < ${EASILY_ROOT}/stubs/global.sql)
+
+  "${mysql_runtime}" --defaults-file="${config}" < "${EASILY_ROOT}/stubs/global.sql"
 }
 
 easily.project.findByRoot() {
@@ -17,9 +25,9 @@ easily.project.findByRoot() {
 
 
   local query_result
-  query_result=$($mysql_runtime --defaults-file=$config -D easily -B --skip-column-names -e "$query")
+  query_result=$("${mysql_runtime}" --defaults-file="${config}" -D easily -B --skip-column-names -e "${query}")
 
-  echo $query_result
+  echo "${query_result}"
 }
 
 easily.project.create() {
@@ -79,6 +87,6 @@ easily.project.create() {
   $mysql_runtime --defaults-file=$config -D easily -e "$query"
 
   if [[ $? -eq 0 ]]; then
-    echo "$(easily.project.findByRoot $root)"
+    echo "$(easily.project.findByRoot "${root}")"
   fi
 }

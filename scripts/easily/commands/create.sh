@@ -29,6 +29,9 @@ function easily.create() {
   if ! grep -q DB_DATABASE "$env_path"; then
     echo "DB_DATABASE=${project_id}" >> "${env_path}"
   fi
+  if ! grep -q APP_DOMAIN "$env_path"; then
+    echo "APP_DOMAIN=${project_id}.test" >> "${env_path}"
+  fi
 
   cp "${EASILY_ROOT}/stubs/compose.yaml" "${project_dir}/compose.yaml" || return 1
 

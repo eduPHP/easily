@@ -1,17 +1,26 @@
 source "${HOME}/.config/easily/.env"
+
 function easily.restart() {
   local LOCK="${EASILY_ROOT}/.easily.running.lock"
-  if [ $# -eq 0 ]; then
-      if [ ! -f $LOCK ]; then
-        echo.danger "No arguments supplied or no project running"
-        easily help
-        return 0
-      else
-        source $LOCK
-        set -- $EASILY_RUNNING
-      fi
+  local requested_project="${1:-}"
+
+  if [ -z "${requested_project}" ]; then
+    if [ ! -f "${LOCK}" ]; then
+      echo.danger "No arguments supplied or no project running"
+      easily help
+      return 0
+    fi
+
+    source "${LOCK}"
+    if [[ "${EASILY_RUNNING}" == *" "* ]]; then
+      requested_project="all"
+    else
+      requested_project="${EASILY_RUNNING}"
+    fi
   fi
-  easily stop $1
-  easily start $1
+
+  easily stop "${requested_project}" || return 1
+  easily start "${requested_project}"
 }
-easily.restart $2
+
+easily.restart "$2"

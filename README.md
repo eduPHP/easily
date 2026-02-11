@@ -1,49 +1,55 @@
 # Easily Environment
-> Work in progres...
-### Dependencies
+
+Local Docker workflow for running multiple PHP projects in parallel behind a shared Caddy reverse proxy.
+
+## Dependencies
+
 - [docker](https://docs.docker.com/get-docker/)
 - [docker-compose-v2](https://github.com/docker/compose)
-How this works?
-Add to your `.bashrc` or `.zshrc` or whatever:
+- `jq` (optional, for some helper scripts)
+
+## Setup
+
+Add this to your shell profile (`.bashrc`, `.zshrc`, etc.):
+
 ```bash
 source ~/path/to/this/project/include.sh
 ```
-This adds the "easily" command that works like this:
+
+This adds the `easily` command.
+
+## Commands
+
 ```bash
-Usage: easily [start|stop|create|remove] {project}
-- start {project}	 Starts the project
-- stop {?project}	 Stops the given project or the project currently running
-- create {project}	 Creates a new project
-- remove {project}	 Removes the project containers from docker
-- help			 Shows this help message
+Usage: easily [start|stop|restart|create|remove|db] {project}
+- start {project|all}     Starts one project or all projects
+- stop {?project|all}     Stops one project, all projects, or current running project(s)
+- restart {?project|all}  Restarts one project, all projects, or current running project(s)
+- create {project}        Creates a new project scaffold
+- remove {project}        Removes project containers and local project config
+- db [backup|restore|init|start|stop] {?project}
 ```
-### Creating new Projects
+
+## Creating a Project
+
 ```bash
 easily create my-project
 ```
-### Configuration
-You can call a project by a shorthand and give it a nice presentable name in the file: `./config/projects.ini`
 
-### Aliases
-| Alias                  | Description                                                                                      |
-|------------------------|--------------------------------------------------------------------------------------------------|
-| rebuild&nbsp;{service} | rebulds the given service, ie. `app`/`php`/`mysql` (this might delete the changes you have on it |
-| npm                    | runs npm                                                                                         |
-| php                    | runs php commands, ie. `php -v`                                                                  |
-| p                      | runs tests `php artisan test --parallel --processes 6`                                           |
-| pf {arg}               | runs tests with a filter `php artisan test --fi`                                                 |
-| art                    | shorthand for `php artisan`                                                                      |
-> All aliases run on the project's context
-> You can customize it by copying the default aliases file to your project's directory `cp stubs/aliases.sh projects/my-project/.aliases`
-### HTTPS
-To run in https you need to import the certificate authority generated on `./config/nginx/rootCA.pem`
-If you don't know how to do it, there are plenty of [tutorials on Google](https://www.google.com/search?channel=fs&client=ubuntu-sn&q=import+certificate+authority)
+Then edit `projects/my-project/.env` with your project details.
 
-### TO-DO
-- [ ] use a single nginx instance to serve the projects
-- [ ] allow for multiple containers to run at the same time
-- [ ] "update" command that pulls the latest changes and re-source
-- [ ] a command to upgrade/downgrade php/npm versions
-- [ ] a command to dump/restore the main database
-- [ ] control panel
-- [ ] an "install" command to install docker and all dependencies
+## Parallel Project Routing
+
+- A single shared Caddy container listens on host ports `80` and `443`.
+- If `80/443` are already in use, startup falls back to `8080/8443`.
+- Each project runs its own internal `app` (Caddy) + `php` containers.
+- `easily start <project>` registers `https://<project-domain>` route automatically.
+- `easily start all` starts every project under `projects/`.
+
+## Aliases
+
+| Alias | Description |
+|---|---|
+| `rebuild {service}` | Rebuilds a given service (`app`, `php`, etc.) |
+
+Aliases are loaded per project context and can be customized by copying `stubs/.aliases` to `projects/<project>/.aliases`.

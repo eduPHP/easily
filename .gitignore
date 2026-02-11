@@ -1,7 +1,7 @@
 config/mysql/data/*
 config/postgres/data/*
-config/nginx/certs/*
-config/nginx/rootCA.*
+config/caddy/sites/*.caddy
+!config/caddy/sites/_default.caddy
 projects/*
 !projects/config.json
 .DS_Store

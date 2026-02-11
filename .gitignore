@@ -1,5 +1,6 @@
-mysql
-config/database.sqlite
+config/mysql/data/*
+config/postgres/data/*
+config/nginx/certs/*
 config/nginx/rootCA.*
 projects/*
 !projects/config.json

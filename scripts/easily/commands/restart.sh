@@ -1,8 +1,6 @@
-EASILY_ROOT="${HOME}/code/docker"
-
+source "${HOME}/.config/easily/.env"
 function easily.restart() {
   local LOCK="${EASILY_ROOT}/.easily.running.lock"
-
   if [ $# -eq 0 ]; then
       if [ ! -f $LOCK ]; then
         echo.danger "No arguments supplied or no project running"
@@ -13,9 +11,7 @@ function easily.restart() {
         set -- $EASILY_RUNNING
       fi
   fi
-
   easily stop $1
   easily start $1
 }
-
 easily.restart $2

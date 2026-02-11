@@ -1,7 +1,30 @@
 {
+  "projects":{
+    "/home/edu/code/neonbang/fidelis-elite": {
+      "id": "fidelis",
+      "name": "Fidelis Elite",
+      "domain": "fidelis.test",
+      "database": "fidelis_elite",
+      "php": "8.1"
+    },
+
+      "/home/edu/code/portfolio-projects/ai-resume-reviewer": {
+      "id": "ai-resume-reviewer",
+      "name": "AI Resume Optimizer",
+      "domain": "optimizer.test",
+      "database": "resume_optimizer",
+      "php": "8.4"
+    },
+
+    "/home/edu/code/neonbang/allied-hq": {
+      "id": "allied",
+      "name": "Allied HQ",
+      "domain": "allied.test",
+      "database": "allied-hq",
+      "php": "8.1"
+    }
+  },
   "aliases": {
-    "fidelis": "fidelis-elite",
-    "fe": "fidelis-elite",
     "retrieve": "flexgap"
   },
   "names": {

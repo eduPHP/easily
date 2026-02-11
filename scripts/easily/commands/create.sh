@@ -1,4 +1,6 @@
-EASILY_ROOT="${HOME}/code/docker"
+#!/usr/bin/bash
+
+source "${HOME}/.config/easily/.env"
 
 function easily.create() {
   if [ $# -eq 0 ]
@@ -15,27 +17,20 @@ function easily.create() {
 
   local env_path="${EASILY_ROOT}/projects/${project_id}/.env"
 
-  mkdir -p $project_dir
-  touch $env_path
+  mkdir -p "${project_dir}"
+  touch "${env_path}"
 
   if ! grep -q PHP_VERSION "$env_path"; then
-    echo "PHP_VERSION=8.2" >> $env_path
+    echo "PHP_VERSION=8.2" >> "${env_path}"
   fi
   if ! grep -q SERVER_ROOT "$env_path"; then
-    echo "SERVER_ROOT=~/code/${project_id}" >> $env_path
+    echo "SERVER_ROOT=~/code/${project_id}" >> "${env_path}"
   fi
   if ! grep -q DB_DATABASE "$env_path"; then
-    echo "DB_DATABASE=${project_id}" >> $env_path
+    echo "DB_DATABASE=${project_id}" >> "${env_path}"
   fi
 
-  cp "${EASILY_ROOT}/stubs/compose.yaml" "${project_dir}/compose.yaml"
-
-  #database
-  config="$project_dir/database/config.cnf"
-  if [ ! -f $config ]; then
-      mkdir -p "$project_dir/database/data"
-      cp "${EASILY_ROOT}/stubs/db-config.cnf" "$project_dir/database/config.cnf"
-  fi
+  cp "${EASILY_ROOT}/stubs/compose.yaml" "${project_dir}/compose.yaml" || return 1
 
 #  clear
   echo.success "Created ${project_id}, what's next?"
@@ -43,4 +38,4 @@ function easily.create() {
   echo.info "easily start ${project_id}"
 }
 
-easily.create $2
+easily.create "$2"

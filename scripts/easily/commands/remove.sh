@@ -1,5 +1,4 @@
-EASILY_ROOT="${HOME}/code/docker"
-
+source "${HOME}/.config/easily/.env"
 function easily.remove() {
   if [ $# -eq 0 ]
     then
@@ -8,19 +7,15 @@ function easily.remove() {
       return 0
   fi
   source "${EASILY_ROOT}/scripts/easily/definitions.sh" || return 0
-
   echo "Are you sure? [y/n]"
   read response
   if [[ "$response" =~ ^([yY][sS]|[yY])$ ]]; then
     echo.info "Removing ${project_name}"
-
-    eval "${command} -p ${project_alias} rm -fsv"
+    eval "${command} -p ${project_id} rm -fsv"
     rm -rf "${EASILY_ROOT}/projects/${project_id}"
-
     echo.success "Removed ${project_name}"
   else
     echo.info "Cancelled"
   fi
 }
-
 easily.remove $2

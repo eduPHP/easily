@@ -10,3 +10,10 @@ function echo.warning() {
 function echo.danger() {
   echo -e "  \033[0;41m ERROR \033[m $1"
 }
+function slugify() {
+  echo "$1" | iconv -t ascii//TRANSLIT | \
+  sed -r 's/[~\^]+//g' | \
+  sed -r 's/[^a-zA-Z0-9]+/-/g' | \
+  sed -r 's/^-+\|-+$//g' | \
+  tr A-Z a-z
+}

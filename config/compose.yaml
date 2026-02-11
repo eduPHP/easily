@@ -1,0 +1,63 @@
+networks:
+  easily:
+    external: true
+services:
+  mysql:
+    image: mysql:8
+    tty: true
+    user:
+      1000:1000
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - type: bind
+        source: ./mysql/data
+        target: /var/lib/mysql
+    entrypoint:
+      sh -c "
+      /bin/sh -c groupadd -g 1001;
+      /bin/sh -c useradd -u 1001;
+      echo 'CREATE DATABASE IF NOT EXISTS easily;' > /docker-entrypoint-initdb.d/init.sql;
+      /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci;
+      chown -R 1001 /var/lib/mysql
+      "
+    networks:
+      - easily
+
+  postgres:
+    image: postgres:16
+    tty: true
+    user: "1000:1000"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: easily
+      POSTGRES_USER: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+      SERVICE_TAGS: dev
+      SERVICE_NAME: postgres
+    volumes:
+      - type: bind
+        source: ./postgres/data
+        target: /var/lib/postgresql/data
+    networks:
+      - easily
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - easily
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - easily

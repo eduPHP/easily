@@ -48,7 +48,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: ../../config/php/${PHP_VERSION}/Dockerfile
+      dockerfile: ../../config/php/${PHP_VERSION:-8.4}/Dockerfile
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
@@ -56,9 +56,9 @@ services:
       - "9000:9000"
     volumes:
       - ${SERVER_ROOT}:/var/www/html
-      - ../../config/php/${PHP_VERSION}/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ../../config/php/${PHP_VERSION}/config/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ../../config/php/${PHP_VERSION}/config/php.ini:/usr/local/etc/php/php.ini
+      - ../../config/php/${PHP_VERSION:-8.4}/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ../../config/php/${PHP_VERSION:-8.4}/config/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ../../config/php/${PHP_VERSION:-8.4}/config/php.ini:/usr/local/etc/php/php.ini
     networks:
       - easily
 

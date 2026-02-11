@@ -10,7 +10,11 @@ function easily.create() {
 
     local composerFile=${root}/composer.json
 
-    local php=$(jq -r '.require.php | gsub("[^0-9.]"; "") | .[:3]' $composerFile)
+    local php
+    php=$(jq -r '.require.php // empty | gsub("[^0-9.]"; "") | .[:3]' "$composerFile")
+    if [ -z "${php}" ]; then
+      php="8.4"
+    fi
     local name=$(jq -r '.name' $composerFile)
     source ${root}/.env
     local domain=$(echo $APP_URL | sed -E 's|https?://([^/]+).*|\1|')
@@ -52,7 +56,7 @@ function easily.create() {
   mkdir -p $project_dir
   touch $env_path
   if ! grep -q PHP_VERSION "$env_path"; then
-    echo "PHP_VERSION=8.2" >> $env_path
+    echo "PHP_VERSION=8.4" >> $env_path
   fi
   if ! grep -q SERVER_ROOT "$env_path"; then
     echo "SERVER_ROOT=~/code/${project_id}" >> $env_path

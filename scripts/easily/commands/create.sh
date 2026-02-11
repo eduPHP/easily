@@ -21,7 +21,7 @@ function easily.create() {
   touch "${env_path}"
 
   if ! grep -q PHP_VERSION "$env_path"; then
-    echo "PHP_VERSION=8.2" >> "${env_path}"
+    echo "PHP_VERSION=8.4" >> "${env_path}"
   fi
   if ! grep -q SERVER_ROOT "$env_path"; then
     echo "SERVER_ROOT=~/code/${project_id}" >> "${env_path}"
